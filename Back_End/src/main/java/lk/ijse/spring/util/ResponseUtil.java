@@ -14,9 +14,4 @@ public class ResponseUtil {
     private String massage;
     private Object data;
 
-    public ResponseUtil(int code, String massage, Object data) {
-        this.code = code;
-        this.massage = massage;
-        this.data = data;
-    }
 }

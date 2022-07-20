@@ -31,8 +31,5 @@ public class CarDTO {
     private final String status="Available";
 
 
-    public String getRegistrationNO() {
-        return registrationNO;
-    }
 
 }

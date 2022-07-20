@@ -23,7 +23,4 @@ public class CarRentReturnDTO {
     private CarRentDTO rental;
     private PaymentDTO payment;
 
-    public String getReturnId() {
-        return returnId;
-    }
 }

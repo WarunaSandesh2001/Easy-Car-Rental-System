@@ -18,7 +18,7 @@ public class AdminDTO {
     private String username;
     private String password;
 
-    public String getAdminId() {
+    /*public String getAdminId() {
         return adminId;
-    }
+    }*/
 }

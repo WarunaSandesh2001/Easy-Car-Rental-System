@@ -21,6 +21,7 @@ public class Maintenance {
     private String maintenanceId;
     private LocalDate date;
     private String details;
+    private final double cost = 0.0;
 
     @ManyToOne
     @JoinColumn(name = "registrationNO", referencedColumnName = "registrationNO", nullable = false)

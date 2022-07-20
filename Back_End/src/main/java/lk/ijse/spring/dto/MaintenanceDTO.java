@@ -17,7 +17,4 @@ public class MaintenanceDTO {
     private String details;
     private CarDTO car;
 
-    public String getMaintenanceId() {
-        return maintenanceId;
-    }
 }
