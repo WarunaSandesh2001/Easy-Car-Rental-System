@@ -16,4 +16,8 @@ public class MaintenanceDTO {
     private LocalDate date;
     private String details;
     private CarDTO car;
+
+    public String getMaintenanceId() {
+        return maintenanceId;
+    }
 }

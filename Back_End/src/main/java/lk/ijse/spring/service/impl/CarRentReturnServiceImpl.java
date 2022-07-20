@@ -12,10 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * @author : M-Prageeth
- * @created : 07/07/2022 - 7:26 PM
- **/
 @Service
 @Transactional
 public class CarRentReturnServiceImpl implements CarRentReturnService {

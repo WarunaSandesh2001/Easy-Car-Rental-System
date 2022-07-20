@@ -20,4 +20,8 @@ public class PaymentDTO {
     private String branchName;
     private double amount;
     private CarRentDTO rental;
+
+    public String getPaymentId() {
+        return paymentId;
+    }
 }

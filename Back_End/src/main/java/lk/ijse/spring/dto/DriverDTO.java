@@ -18,4 +18,8 @@ public class DriverDTO {
     private String username;
     private String password;
     private final boolean availability = true;
+
+    public String getLicenceNo() {
+        return licenceNo;
+    }
 }

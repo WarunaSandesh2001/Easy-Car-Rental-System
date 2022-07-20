@@ -23,4 +23,8 @@ public class CustomerDTO {
     private String username;
     private String password;
     private final String status = "Pending";
+
+    public String getCustomerId() {
+        return customerId;
+    }
 }

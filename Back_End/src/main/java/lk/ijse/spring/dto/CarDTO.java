@@ -29,4 +29,10 @@ public class CarDTO {
     private double priceForExtraKm;
     private double completeKm;
     private final String status="Available";
+
+
+    public String getRegistrationNO() {
+        return registrationNO;
+    }
+
 }

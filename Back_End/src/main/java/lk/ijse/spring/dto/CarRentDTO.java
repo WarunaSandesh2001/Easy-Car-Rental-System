@@ -20,4 +20,9 @@ public class CarRentDTO {
     private CustomerDTO customer;
     private CarDTO car;
     private DriverDTO driver;
+
+    public String getRentId() {
+        return rentId;
+    }
+
 }

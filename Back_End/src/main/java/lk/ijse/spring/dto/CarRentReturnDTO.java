@@ -22,4 +22,8 @@ public class CarRentReturnDTO {
     private double noOfKm;
     private CarRentDTO rental;
     private PaymentDTO payment;
+
+    public String getReturnId() {
+        return returnId;
+    }
 }
