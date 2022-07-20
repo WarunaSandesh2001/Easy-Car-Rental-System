@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,4 +34,9 @@ class CustomerRepoTest {
         repo.updateCustomerStatus("C00-0001");
     }
 
+    @Test
+    public void getAll(){
+       /* Customer a = repo.getReferenceById("C00-0001");*/
+        List<Customer> all = repo.findAll();
+    }
 }
