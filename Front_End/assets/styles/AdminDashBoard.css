@@ -1,0 +1,47 @@
+body{
+    overflow: hidden;
+}
+
+.navbar-brand{
+    font-size: 25px;
+    position: relative;
+    top: 3px;
+    left: 30px;
+    letter-spacing: 0.5px;
+}
+
+#brandName {
+    color: #81b2ef;
+    font-weight: bold;
+    font-size: 20px;
+    position: relative;
+    top: 5px;
+    font-family: cursive;
+    left: -20px;
+    letter-spacing: 5.8px;
+}
+
+#leftnavigations{
+    position: relative;
+    width: 250px;
+    background-color: antiquewhite;
+    height: 100vh;
+}
+
+.navigate{
+    font-size: 18px;
+    letter-spacing: 0.6px;
+    position: relative;
+    left: 14%;
+    padding: 16px;
+    top: 68px;
+    cursor: pointer;
+    background-color: black;
+}
+
+#leftnavigations >div{
+    width: 192px;
+    border-radius: 20px;
+}
+
+
