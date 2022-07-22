@@ -68,7 +68,7 @@ public class CarController {
     @PutMapping(path = "/up/{registrationID}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil uploadImagesAndPath(@RequestPart("frontImg") MultipartFile frontImg, @RequestPart("backImg") MultipartFile backImg, @RequestPart("interImg") MultipartFile interImg, @RequestPart("sideImg") MultipartFile sideImg, @PathVariable String registrationID) {
         try {
-            String projectPath = String.valueOf(new File("/media/prageeth/Disk D/ProjectFiles/Easy_Car_Rent"));
+            String projectPath = String.valueOf(new File("/D:/GDSE/2nd sem Final/Easy-Car-Rent-System"));
             File uploadsDir = new File(projectPath + "/Cars");
             uploadsDir.mkdir();
             frontImg.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + frontImg.getOriginalFilename()));
