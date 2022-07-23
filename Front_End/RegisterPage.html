@@ -7,24 +7,32 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link href="assets/css/normalize.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/styles/RegisterPage.css">
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/styles/RegisterPage.css" rel="stylesheet">
 </head>
 <body>
 <section id="pageCover">
-    <img id="CoverImage" src="assets/images/carRental.png" alt="coverImage">
+    <img alt="coverImage" id="CoverImage" src="assets/images/carRental.png">
     <div id="pageCoverDiv">
         <h1>Register Here</h1>
     </div>
 </section>
+<div id="dropdown1">
+    <select aria-label="Default select example" class="form-select" id="cmbType"
+            name="type">
+        <option selected>Customer</option>
+        <option value="1">Driver</option>
+        <option value="2">Admin</option>
+    </select>
+</div>
 <section class="container-fluid" id="signUp">
     <div id="signUpImage">
         <!--<section class="container-fluid p-3 bg-black text-white">
             <h1 class="fw-bold">New User Registration</h1>
         </section>-->
-        <section class="container-fluid mt-3" >
+        <section class="container-fluid mt-3">
             <!--    customer save-->
             <div class="row mt-3">
                 <div class="col-4">
@@ -62,10 +70,10 @@
                                        type="text">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" id="imgNiCFront" name="imgFrontView">
+                                <input class="form-control" id="imgNiCFront" name="imgFrontView" type="file">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" id="imgNiCBack" name="imgBackView">
+                                <input class="form-control" id="imgNiCBack" name="imgBackView" type="file">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="cusLicence">Licence No</label>
@@ -73,7 +81,7 @@
                                        type="text">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" id="imgLicence" name="imgLicence">
+                                <input class="form-control" id="imgLicence" name="imgLicence" type="file">
                             </div>
 
                         </section>
@@ -90,9 +98,7 @@
                                 <input class="form-control" id="password" name="Password" placeholder="Password"
                                        type="text">
                             </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-success" id="registerBtn">Register</button>
-                            </div>
+                            <button class="btn" id="registerBtn" type="button">Register</button>
                         </section>
 
                     </form>

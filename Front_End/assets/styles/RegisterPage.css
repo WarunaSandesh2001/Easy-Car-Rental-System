@@ -11,12 +11,14 @@
 
 #pageCoverDiv{
     position: absolute;
-    width: 270px;
+    width: 385px;
     height: 100px;
     background-color: black;
-    opacity: 50%;
-    top: 10px;
-    left: 69%;
+    /*opacity: 50%;*/
+    top: 70px;
+    left: 65%;
+    border-radius: 1px 50px 1px;
+    box-shadow: #071b4c 10px 10px;
 }
 
 #pageCoverDiv>h1{
@@ -27,15 +29,40 @@
     font-family: cursive;
 }
 
+#cmbType{
+    width: 250px;
+    background-color: #20c997;
+    cursor: pointer;
+    position: relative;
+    left: 81%;
+}
+
 #sec1{
     position: absolute;
     left: 8%;
+    top: 300px;
 }
 #sec2{
     position: absolute;
     left: 37%;
+    top: 300px;
 }
 #sec3{
     position: absolute;
     left: 69%;
+    top: 300px;
+}
+
+#registerBtn{
+    width: 325px;
+    position: relative;
+    top: 55px;
+    background-color: #02204c;
+    border-radius: 25px;
+    color: white;
+    -webkit-transition: all 400ms ease;
+}
+
+.form-control{
+    width: 285px;
 }
