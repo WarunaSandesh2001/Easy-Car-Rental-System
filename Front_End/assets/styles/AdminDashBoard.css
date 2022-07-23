@@ -1,5 +1,5 @@
 body{
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .navbar-brand{
@@ -60,13 +60,13 @@ body{
     padding: 6px;
 }
 
-/*============================================================DashBoard======================================================================*/
+/*============================================================DashBoard section 1======================================================================*/
 
 #section1DashBoard{
     position: absolute;
     left: 20%;
-    top: 96px;
-
+    top: 65px;
+    height: 100vh;
 }
  .card{
      padding: 10px;
@@ -102,4 +102,14 @@ body{
     position: relative;
     top: 105px;
     left: -26px;
+}
+
+/*============================================================Customer Section 2 ==============================================================*/
+
+#section2Customer{
+    position: relative;
+    left: 16.5%;
+    top: 0;
+    height: 100vh;
+    background-color: antiquewhite;
 }
