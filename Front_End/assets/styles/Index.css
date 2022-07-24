@@ -95,7 +95,7 @@ body{
     top: 105vh;
 }
 
-.card-deck{
+/*.card-deck{
     width: 80%;
     position: relative;
     left: 10%;
@@ -125,6 +125,16 @@ body{
     position: absolute;
     left: 1036px;
     top: 50px;
+}*/
+
+#catalouge2{
+    position: relative;
+    left: 10%;
+}
+
+.card {
+    cursor: pointer;
+    box-shadow: #7b7878 2px 2px;
 }
 
 #topicGeneralCars{

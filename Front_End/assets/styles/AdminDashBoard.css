@@ -66,8 +66,8 @@ html body {
 .adminContent #v-tabs-dash-tab, #v-tabs-car-tab, #v-tabs-customer-tab, #v-tabs-driver-tab, #v-tabs-rentals-tab, #v-tabs-payment-tab, #v-tabs-request-tab,
 #v-tabs-profile-tab, #v-tabs-setting-tab, #v-tabs-rentalreturns-tab, #v-tabs-maintenance-tab, #v-tabs-income-tab {
     padding: 25px;
-    font-size: 20px;
-    text-shadow: #c7c7c7 5px 5px 5px;
+    font-size: 15px;
+
 
 }
 
@@ -95,7 +95,7 @@ html body {
 
 .navbar li .nav-link:hover {
     color: #002aff;
-    /*text-decoration: underline;*/
+    text-decoration: underline;
     text-decoration-color: #002aff;
 }
 
