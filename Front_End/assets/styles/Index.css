@@ -68,7 +68,7 @@ body{
     width: 50px;
     height: 50px;
     left: 48.6%;
-    bottom: 48px;
+    bottom: 31px;
     cursor: pointer;
 
 }
@@ -92,7 +92,7 @@ body{
 
 #generalCars{
     position: absolute;
-    top: 105vh;
+    top: 17vh;
 }
 
 /*.card-deck{
@@ -139,8 +139,36 @@ body{
 
 #topicGeneralCars{
     position: relative;
-    left: 51%;
+    left: 41%;
     font-size: 50px;
     letter-spacing: 2.5px;
     font-style: italic;
+    top: 648px;
+}
+
+.rentCarBtn{
+    position: absolute;
+    background: yellow;
+    animation-name: rentNow;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+.carImg{
+    width: 18rem;
+    height: 200px;
+}
+#carTittle{
+    position: absolute;
+    left: 1%;
+    right: 1%;
+    bottom: 10%;
+    color: white;
+}
+
+#carTable{
+    position: relative;
+    margin-top: 47%;
+    right: 1%;
+    left: 1%;
 }
