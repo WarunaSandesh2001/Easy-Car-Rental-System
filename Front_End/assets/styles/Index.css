@@ -90,7 +90,7 @@ body{
     left: 50px;
 }
 
-#generalCars{
+#sectionGeneralCars{
     position: absolute;
     top: 17vh;
 }
@@ -139,10 +139,10 @@ body{
 
 #topicGeneralCars{
     position: relative;
-    left: 41%;
+  /*  left: 41%;*/
     font-size: 50px;
-    letter-spacing: 2.5px;
-    font-style: italic;
+    /*letter-spacing: 2.5px;
+    font-style: italic;*/
     top: 648px;
 }
 
@@ -171,4 +171,29 @@ body{
     margin-top: 47%;
     right: 1%;
     left: 1%;
+}
+
+#premiumCars{
+    position: relative;
+    top: 231vh;
+    width: 100%;
+    height: 100vh;
+}
+
+#carTablePre{
+    top: 1059px;
+    position: relative;
+    width: 100%;
+    left: 10px;
+}
+
+#luxeryCars{
+    position: relative;
+    top: 0;
+    width: 100%;
+}
+
+#sectionCarLuxery{
+    position: relative;
+    top: 1050px;
 }
