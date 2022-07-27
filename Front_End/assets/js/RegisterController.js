@@ -4,9 +4,10 @@ let regContactNo = /^(0)[1-9][0-9][0-9]{7}$/;
 let regEmail = /^[a-z0-9]{3,}(@)[a-z]{3,}(.)[a-z]{2,3}$/;
 let regDrivingLicenceNo = /^(B)[0-9]{7}$/;
 let regNicNo = /^[0-9]{9}(V)|[0-9]{12}$/;
+let regLoginUsername = /^[A-z0-9]{6,10}$/;
+let regLoginPassword = /^[A-z0-9@#$%&!*]{8,}$/;
 
 var baseUrl1 = "http://localhost:8080/Back_End_war/api/v1/admin";
-var baseUrl2 = "http://localhost:8080/Back_End_war/api/v1/driver";
 var baseUrl3 = "http://localhost:8080/Back_End_war/api/v1/customer";
 
 $('#txtUserName,#txtPassword,#txtName,#txtContact,#txtAddress,#txtEmail,#txtLicene,#txtNIC,#txtUserName,#txtPassword,#imgNiCFront,#imgNiCBack,#imgLicence').on('keydown', function (event) {
@@ -15,7 +16,9 @@ $('#txtUserName,#txtPassword,#txtName,#txtContact,#txtAddress,#txtEmail,#txtLice
     }
 });
 
-$('#inputUserType').change(function () {
+generateCustomerId();
+
+$('#cmbType').change(function () {
     var userType = $('#cmbType').find('option:selected').text();
     if (userType === "Admin") {
         $("#txtName").prop('disabled', false);
@@ -43,19 +46,6 @@ $('#inputUserType').change(function () {
         $("#imgNiCBack").prop('disabled', false);
         $("#imgLicence").prop('disabled', false);
         generateCustomerId();
-    }else if (userType === "Driver") {
-        $("#txtName").prop('disabled', false);
-        $("#txtAddress").prop('disabled', false);
-        $("#txtContact").prop('disabled', false);
-        $("#txtEmail").prop('disabled', true);
-        $("#txtUserName").prop('disabled', false);
-        $("#txtPassword").prop('disabled', false);
-        $("#txtLicene").prop('disabled', false);
-        $("#txtNIC").prop('disabled', false);
-        $("#imgNiCFront").prop('disabled', true);
-        $("#imgNiCBack").prop('disabled', true);
-        $("#imgLicence").prop('disabled', true);
-        $('#txtUserID').val("");
     }else {
         disableAllComponents();
     }
@@ -325,29 +315,34 @@ function addCustomer() {
         password: password
     }
 
+    console.log(customer);
+
     $.ajax({
-        url: baseUrl + "/customer",
+        url: baseUrl3,
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify(customer),
         success: function (resp) {
             uploadCustomerImages(id);
-            swal({
+            /*swal({
                 title: "Confirmation",
                 text: "Customer Added Successfully",
                 icon: "success",
                 button: "Close",
                 timer: 2000
-            });
+            });*/
+            alert(resp.massage);
+            console.log("Success")
         },
         error: function (ob) {
-            swal({
+            /*swal({
                 title: "Error!",
                 text: "Customer Not Added Successfully",
                 icon: "error",
                 button: "Close",
                 timer: 2000
-            });
+            });*/
+            alert(ob.massage);
         }
     })
 }
@@ -381,39 +376,42 @@ function uploadCustomerImages(id) {
     })
 }
 
+//to be continue=================================================================
 function clearSignupTextFields() {
-    $('#txtId').val("");
-    $('#inputUserType').val("-Select User Type-");
-    $('#inputName').val("");
-    $('#inputContactNo').val("");
-    $('#inputAddress').val("");
-    $('#inputEmail').val("");
-    $('#inputDrivingLicence').val("");
-    $('#inputNIC').val("");
-    $('#inputUserName').val("");
-    $('#inputPassword').val("");
-    $('#inputfile1').val("");
-    $('#inputfile2').val("");
-    $('#inputfile3').val("");
-    $('#inputName').css('border', '1px solid #ced4da');
-    $('#inputContactNo').css('border', '1px solid #ced4da');
-    $('#inputAddress').css('border', '1px solid #ced4da');
-    $('#inputEmail').css('border', '1px solid #ced4da');
-    $('#inputDrivingLicence').css('border', '1px solid #ced4da');
-    $('#inputNIC').css('border', '1px solid #ced4da');
-    $('#inputUserName').css('border', '1px solid #ced4da');
-    $('#inputPassword').css('border', '1px solid #ced4da');
+    $('#txtUserID').val("");
+    $('#cmbType').val("Customer");
+    $('#txtName').val("");
+    $('#txtContact').val("");
+    $('#txtAddress').val("");
+    $('#txtEmail').val("");
+    $('#txtLicene').val("");
+    $('#txtNIC').val("");
+    $('#txtUserName').val("");
+    $('#txtPassword').val("");
+
+    $('#imgNiCFront').val("");
+    $('#imgNiCBack').val("");
+    $('#imgLicence').val("");
+
+    $('#txtName').css('border', '1px solid #ced4da');
+    $('#txtContact').css('border', '1px solid #ced4da');
+    $('#txtAddress').css('border', '1px solid #ced4da');
+    $('#txtEmail').css('border', '1px solid #ced4da');
+    $('#txtLicene').css('border', '1px solid #ced4da');
+    $('#txtNIC').css('border', '1px solid #ced4da');
+    $('#txtUserName').css('border', '1px solid #ced4da');
+    $('#txtPassword').css('border', '1px solid #ced4da');
     disableAllComponents();
 }
 
 function addAdmin() {
-    let id = $('#txtId').val();
-    let name = $('#inputName').val();
-    let address = $('#inputAddress').val();
-    let contactNo = $('#inputContactNo').val();
-    let email = $('#inputEmail').val();
-    let username = $('#inputUserName').val();
-    let password = $('#inputPassword').val();
+    let id = $('#txtUserID').val();
+    let name = $('#txtName').val();
+    let address = $('#txtAddress').val();
+    let contactNo = $('#txtContact').val();
+    let email = $('#txtEmail').val();
+    let username = $('#txtUserName').val();
+    let password = $('#txtPassword').val();
 
     var admin = {
         adminId: id,
@@ -424,30 +422,136 @@ function addAdmin() {
         username: username,
         password: password
     }
-
+    console.log(admin);
     $.ajax({
-        url: baseUrl + "api/v1/admin",
+        url: baseUrl1,
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify(admin),
         success: function (resp) {
             clearSignupTextFields();
-            swal({
+            /*swal({
                 title: "Confirmation",
                 text: "Admin Added Successfully",
                 icon: "success",
                 button: "Close",
                 timer: 2000
-            });
+            });*/
+            alert(resp.massage);
         },
         error: function (ob) {
-            swal({
+            /*swal({
                 title: "Error!",
                 text: "Admin Not Added Successfully",
                 icon: "error",
                 button: "Close",
                 timer: 2000
-            });
+            });*/
+            alert(ob.massage);
         }
     })
 }
+
+$('#registerBtn').click(function () {
+    var userType = $('#cmbType').find('option:selected').text();
+    console.log(userType);
+    if (userType === "Customer") {
+        if ($('#txtName').val() != "") {
+            if ($('#txtContact').val() != "") {
+                if ($('#txtAddress').val() != "") {
+                    if ($('#txtEmail').val() != "") {
+                        if ($('#txtLicene').val() != "") {
+                            if ($('#txtNIC').val() != "") {
+                                if ($('#txtUserName').val() != "") {
+                                    if ($('#txtPassword').val() != "") {
+                                        if ($('#imgNiCFront').val() != "") {
+                                            if ($('#imgNiCBack').val() != "") {
+                                                if ($('#imgLicence').val() != "") {
+                                                    let res = confirm("Do you want to add this customer?");
+                                                    if (res) {
+                                                        addCustomer();
+                                                    }
+                                                } else {
+                                                    alert("Please upload image of licence");
+                                                    $('#imgLicence').focus();
+                                                }
+                                            } else {
+                                                alert("Please upload back image of NIC");
+                                                $('#imgNiCBack').focus();
+                                            }
+                                        } else {
+                                            alert("Please upload front image of NIC");
+                                            $('#imgNiCFront').focus();
+                                        }
+                                    } else {
+                                        alert("Please enter password...");
+                                        $('#txtPassword').focus();
+                                    }
+                                } else {
+                                    alert("Please enter username...");
+                                    $('#txtUserName').focus();
+                                }
+                            } else {
+                                alert("Please enter your NIC No...");
+                                $('#txtNIC').focus();
+                            }
+                        } else {
+                            alert("Please enter your licence No...");
+                            $('#txtLicene').focus();
+                        }
+                    } else {
+                        alert("Please enter your email...");
+                        $('#txtEmail').focus();
+                    }
+                } else {
+                    alert("Please enter your address...");
+                    $('#txtAddress').focus();
+                }
+            } else {
+                alert("Please enter your Contact No...");
+                $('#txtContact').focus();
+            }
+        } else {
+            alert("Please enter your name...");
+            $('#txtName').focus();
+        }
+    }
+    if (userType === "Admin") {
+        if ($('#txtName').val() != "") {
+            if ($('#txtContact').val() != "") {
+                if ($('#txtAddress').val() != "") {
+                    if ($('#txtEmail').val() != "") {
+                        if ($('#txtUserName').val() != "") {
+                            if ($('#txtPassword').val() != "") {
+                                let res = confirm("Do you want to add this admin?");
+                                if (res) {
+                                    addAdmin();
+                                }
+                            } else {
+                                alert("Please enter password...");
+                                $('#txtPassword').focus();
+                            }
+                        } else {
+                            alert("Please enter username...");
+                            $('#txtUserName').focus();
+                        }
+                    } else {
+                        alert("Please enter your email...");
+                        $('#txtEmail').focus();
+                    }
+                } else {
+                    alert("Please enter your address...");
+                    $('#txtAddress').focus();
+                }
+            } else {
+                alert("Please enter your Contact No...");
+                $('#txtContact').focus();
+            }
+        } else {
+            alert("Please enter your name...");
+            $('#txtName').focus();
+        }
+    } else {
+        alert("Please select user type")
+    }
+});
