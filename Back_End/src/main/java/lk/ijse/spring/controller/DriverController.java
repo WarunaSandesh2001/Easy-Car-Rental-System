@@ -22,9 +22,9 @@ public class DriverController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil saveDriver(DriverDTO dto) {
+    public ResponseUtil saveDriver(@RequestBody DriverDTO dto) {
         service.saveDriver(dto);
-        return new ResponseUtil(200, "Saved", null);
+        return new ResponseUtil(200, "Saved", true);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,12 +48,12 @@ public class DriverController {
     public ResponseUtil searchDriverByUsernameAndPassword(@PathVariable String username, @PathVariable String password) {
         if (service.findDriverByUsername(username)) {
             if (service.findDriverByPassword(password)) {
-                return new ResponseUtil(200, "Login Successful", null);
+                return new ResponseUtil(200, "Login Successful", true);
             } else {
-                return new ResponseUtil(404, "Incorrect Password", null);
+                return new ResponseUtil(404, "Incorrect Password", false);
             }
         } else {
-            return new ResponseUtil(404, "Incorrect Username", null);
+            return new ResponseUtil(404, "Incorrect Username", false);
         }
     }
 

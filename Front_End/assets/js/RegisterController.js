@@ -332,7 +332,7 @@ function addCustomer() {
                 timer: 2000
             });*/
             alert(resp.massage);
-            console.log("Success")
+            console.log("Success");
         },
         error: function (ob) {
             /*swal({
@@ -343,6 +343,7 @@ function addCustomer() {
                 timer: 2000
             });*/
             alert(ob.massage);
+            console.log("Error");
         }
     })
 }
@@ -363,7 +364,7 @@ function uploadCustomerImages(id) {
     data.append("licenceImg", fileObjectLicence, fileNameLicence);
 
     $.ajax({
-        url: baseUrl + "/customer/up/" + id,
+        url: baseUrl3 + "/up/" + id,
         method: "PUT",
         async: true,
         contentType: false,
@@ -438,6 +439,7 @@ function addAdmin() {
                 timer: 2000
             });*/
             alert(resp.massage);
+            console.log("success");
         },
         error: function (ob) {
             /*swal({
@@ -448,6 +450,7 @@ function addAdmin() {
                 timer: 2000
             });*/
             alert(ob.massage);
+            console.log("Error");
         }
     })
 }
