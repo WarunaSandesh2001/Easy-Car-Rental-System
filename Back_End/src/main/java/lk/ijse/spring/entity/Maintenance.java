@@ -19,9 +19,9 @@ import java.time.LocalDate;
 public class Maintenance {
     @Id
     private String maintenanceId;
-    private LocalDate date;
+    private String date;
     private String details;
-    private final double cost = 0.0;
+    private double cost;
 
     @ManyToOne
     @JoinColumn(name = "registrationNO", referencedColumnName = "registrationNO", nullable = false)

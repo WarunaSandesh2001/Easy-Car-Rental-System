@@ -34,9 +34,9 @@ public class Car {
     private double lossDamageWaiver;
     private double priceForExtraKm;
     private double completeKm;
-    private final String status = "Available";
+    private String status;
 
-    @ManyToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<CarRent> rentals = new ArrayList<>();
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)

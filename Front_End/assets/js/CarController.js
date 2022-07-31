@@ -11,6 +11,8 @@ let regLossDamageWaiver = /^[0-9.]{1,}$/;
 let regPriceForExtraKm = /^[0-9.]{1,}$/;
 let regCompleteKm = /^[0-9.]{1,}$/;
 
+/*loadAllCars();*/
+
 $('#txtRegNo').on('keyup', function (event) {
     var regNo = $('#txtRegNo').val();
     checkRegNo();
@@ -410,6 +412,7 @@ function addCar() {
         completeKm: completeKm,
         status: status
     }
+    console.log(car);
 
     $.ajax({
         url: baseUrl + "api/v1/car",
@@ -417,9 +420,9 @@ function addCar() {
         contentType: "application/json",
         data: JSON.stringify(car),
         success: function (res) {
-            uploadCarImages(regNo);
-            loadAllCars();
-            getAvailableCarCount();
+            /*loadAllCars();*/
+            /*uploadCarImages(regNo);*/
+           /* getAvailableCarCount();*/
             /*swal({
                 title: "Confirmation",
                 text: "Car Added Successfully",
@@ -427,6 +430,7 @@ function addCar() {
                 button: "Close",
                 timer: 2000
             });*/
+            /*alert(res.massage);*/
         },
         error: function (ob) {
             /*swal({
@@ -436,9 +440,44 @@ function addCar() {
                 button: "Close",
                 timer: 2000
             });*/
+            /*alert(ob.massage);*/
         }
     })
 }
+
+function loadAllCars() {
+    $('#carTable').empty();
+    $.ajax({
+        url: baseUrl + "api/v1/car",
+        method: "GET",
+        success: function (res) {
+            for (const car of res.data) {
+                let row = `<tr><td>${car.registrationNO}</td><td>${car.brand}</td><td>${car.type}</td><td>${car.noOfPassengers}</td><td>${car.transmissionType}</td><td>${car.fuelType}</td><td>${car.color}</td><td>${car.dailyRate}</td><td>${car.monthlyRate}</td><td>${car.freeKmForPrice}</td><td>${car.freeKmForDuration}</td><td>${car.lossDamageWaiver}</td><td>${car.priceForExtraKm}</td><td>${car.completeKm}</td><td>${car.status}</td></tr>`;
+                $('#carTable').append(row);
+            }
+            bindCarTableClickEvents();
+        }
+    });
+}
+
+/*function getAvailableCarCount() {
+    let status = "Available";
+    $.ajax({
+        url: baseUrl + "api/v1/car/count/" + status,
+        method: "GET",
+        success: function (res) {
+            if (res.data != 0) {
+                if (res.data < 10) {
+                    $('#countAvailableCars').text("0" + res.data);
+                } else {
+                    $('#countAvailableCars').text(res.data);
+                }
+            } else {
+                $('#countAvailableCars').text("00");
+            }
+        }
+    })
+}*/
 
 function uploadCarImages(registrationID) {
     var fileObjectFront = $('#imgFrontView')[0].files[0];
@@ -473,7 +512,7 @@ function uploadCarImages(registrationID) {
     })
 }
 
-function clearAddCarFields() {
+/*function clearAddCarFields() {
     $('#txtRegNo').val("");
     $('#txtBrand').val("");
     $('#cmbtype').find('option:selected').text("- Select Car Type -");
@@ -516,24 +555,198 @@ function clearAddCarFields() {
     $("#updateCar").prop('disabled', true);
     $("#delCar").prop('disabled', true);
     $("#saveCar").prop('disabled', false);
-}
+}*/
 
-$('#clearCar').click(function () {
+
+/*$('#clearCar').click(function () {
     clearAddCarFields();
     loadAllCars();
-});
+});*/
 
-function loadAllCars() {
-    $('#carTable').empty();
-    $.ajax({
-        url: baseUrl + "api/v1/car",
-        method: "GET",
-        success: function (res) {
-            for (const car of res.data) {
-                let row = `<tr><td>${car.registrationNO}</td><td>${car.brand}</td><td>${car.type}</td><td>${car.noOfPassengers}</td><td>${car.transmissionType}</td><td>${car.fuelType}</td><td>${car.color}</td><td>${car.dailyRate}</td><td>${car.monthlyRate}</td><td>${car.freeKmForPrice}</td><td>${car.freeKmForDuration}</td><td>${car.lossDamageWaiver}</td><td>${car.priceForExtraKm}</td><td>${car.completeKm}</td><td>${car.status}</td></tr>`;
-                $('#carTable').append(row);
-            }
-            bindCarTableClickEvents();
-        }
+function bindCarTableClickEvents() {
+    $('#carTable>tr').click(function () {
+        let regNo = $(this).children().eq(0).text();
+        let brand = $(this).children().eq(1).text();
+        let type = $(this).children().eq(2).text();
+        let passengers = $(this).children().eq(3).text();
+        let transmission = $(this).children().eq(4).text();
+        let fuel = $(this).children().eq(5).text();
+        let color = $(this).children().eq(6).text();
+        let daily = $(this).children().eq(7).text();
+        let monthly = $(this).children().eq(8).text();
+        let kmForPrice = $(this).children().eq(9).text();
+        let kmForDura = $(this).children().eq(10).text();
+        let ldw = $(this).children().eq(11).text();
+        let extraKm = $(this).children().eq(12).text();
+        let completeKm = $(this).children().eq(13).text();
+
+        $("#saveCar").prop('disabled', true);
+        $("#updateCar").prop('disabled', false);
+        $("#delCar").prop('disabled', false);
+        $("#imgFrontView").prop('disabled', true);
+        $("#imgBackView").prop('disabled', true);
+        $("#imgSideView").prop('disabled', true);
+        $("#imgInteriorView").prop('disabled', true);
+
+        $('#txtRegNo').val(regNo);
+        $('#txtBrand').val(brand);
+        $('#cmbtype').find('option:selected').text(type);
+        $('#txtNoOfPassengers').val(passengers);
+        $('#cmbTransmissionType').find('option:selected').text(transmission);
+        $('#cmbfuel').find('option:selected').text(fuel);
+        $('#cmbColor').find('option:selected').text(color);
+        $('#txtDailyRate').val(daily);
+        $('#txtMonthlyRate').val(monthly);
+        $('#txtFreeKmForPrice').val(kmForPrice);
+        $('#txtFreeKmForDuration').val(kmForDura);
+        $('#txtLossDamageWaiver').val(ldw);
+        $('#txtPriceForExtraKm').val(extraKm);
+        $('#txtCompleteKm').val(completeKm);
     });
 }
+
+/*
+$('#updateCar').click(function () {
+    updateCar();
+    clearAddCarFields();
+});
+*/
+
+/*
+function updateCar() {
+    let regNo = $('#txtRegNo').val();
+    let brand = $('#txtBrand').val();
+    let type = $('#cmbtype').find('option:selected').text();
+    let noOfPassengers = $('#txtNoOfPassengers').val();
+    let transmission = $('#cmbTransmissionType').find('option:selected').text();
+    let fuel = $('#cmbfuel').find('option:selected').text();
+    let color = $('#cmbColor').find('option:selected').text();
+    let dailyRate = $('#txtDailyRate').val();
+    let monthlyRate = $('#txtMonthlyRate').val();
+    let freeKmForPrice = $('#txtFreeKmForPrice').val();
+    let freeKmForDuration = $('#txtFreeKmForDuration').val();
+    let lossDamageWavier = $('#txtLossDamageWaiver').val();
+    let priceForExtraKm = $('#txtPriceForExtraKm').val();
+    let completeKm = $('#txtCompleteKm').val();
+
+    var car = {
+        registrationNO: regNo,
+        brand: brand,
+        type: type,
+        noOfPassengers: noOfPassengers,
+        transmissionType: transmission,
+        fuelType: fuel,
+        color: color,
+        dailyRate: dailyRate,
+        monthlyRate: monthlyRate,
+        freeKmForPrice: freeKmForPrice,
+        freeKmForDuration: freeKmForDuration,
+        lossDamageWaiver: lossDamageWavier,
+        priceForExtraKm: priceForExtraKm,
+        completeKm: completeKm
+    }
+
+    $.ajax({
+        url: baseUrl + "api/v1/car",
+        method: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(car),
+        success: function (res) {
+            loadAllCars();
+            /!*swal({
+                title: "Confirmation",
+                text: "Car Updated Successfully",
+                icon: "success",
+                button: "Close",
+                timer: 2000
+            });*!/
+            alert(res.massage);
+        },
+        error: function (ob) {
+            /!*swal({
+                title: "Error",
+                text: "Car Not Updated Successfully",
+                icon: "error",
+                button: "Close",
+                timer: 2000
+            });*!/
+            alert(ob.massage);
+        }
+    })
+}
+*/
+
+/*
+$('#delCar').click(function () {
+    deleteCar();
+    clearAddCarFields();
+})*/
+
+/*
+function deleteCar() {
+    let registrationNo = $('#txtRegNo').val();
+    $.ajax({
+        url: baseUrl + "api/v1/car?registrationNo=" + registrationNo,
+        method: "DELETE",
+        success: function (res) {
+            loadAllCars();
+            /!*swal({
+                title: "Confirmation!",
+                text: "Car Deleted Successfully",
+                icon: "success",
+                button: "Close",
+                timer: 2000
+            });*!/
+            alert(res.massage);
+        },
+        error: function (ob) {
+            /!*swal({
+                title: "Error",
+                text: "Car Not Deleted Successfully",
+                icon: "error",
+                button: "Close",
+                timer: 2000
+            });*!/
+            alert(ob.massage);
+        }
+    })
+}*/
+
+/*
+$('#searchCar').on('keyup', function (event) {
+    checkSearchCar();
+    if (event.key === "Enter") {
+        searchCar();
+    }
+});*/
+
+/*
+function checkSearchCar() {
+    var regNo = $('#searchCar').val();
+    if (regRegNo.test(regNo)) {
+        $("#searchCar").css('border', '3px solid green');
+        return true;
+    } else {
+        $("#searchCar").css('border', '3px solid red');
+        return false;
+    }
+}*/
+
+/*
+function searchCar() {
+    let registrationNo = $('#searchCar').val();
+    $.ajax({
+        url: baseUrl + "api/v1/car/" + registrationNo,
+        method: "GET",
+        success: function (res) {
+            let car = res.data;
+            $('#carTable').empty();
+            let row = `<tr><td>${car.registrationNO}</td><td>${car.brand}</td><td>${car.type}</td><td>${car.noOfPassengers}</td><td>${car.transmissionType}</td><td>${car.fuelType}</td><td>${car.color}</td><td>${car.dailyRate}</td><td>${car.monthlyRate}</td><td>${car.freeKmForPrice}</td><td>${car.freeKmForDuration}</td><td>${car.lossDamageWaiver}</td><td>${car.priceForExtraKm}</td><td>${car.completeKm}</td><td>${car.status}</td></tr>`
+            $('#carTable').append(row);
+        },
+        error: function (ob) {
+            loadAllCars();
+            alert(ob.massage);
+        }
+    })
+}*/
