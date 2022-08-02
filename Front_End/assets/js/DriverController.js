@@ -1,4 +1,32 @@
-var baseUrl = "http://localhost:8080/Back_End_war/";
+let baseUrl2 = "http://localhost:8080/Back_End_war/";
+
+let regDrivingLicenceNo = /^(B)[0-9]{7}$/;
+let regName = /^[A-z .]{3,}$/;
+let regAddress = /^[A-z ,.0-9]{3,}$/;
+let regContactNo = /^(0)[1-9][0-9][0-9]{7}$/;
+let regNicNo = /^[0-9]{9}(V)|[0-9]{12}$/;
+let regLoginUsername = /^[A-z0-9]{6,10}$/;
+let regLoginPassword = /^[A-z0-9@#$%&!*]{8,}$/;
+
+$('#txtLicenceNo').on('keyup', function (event) {
+    checkDriverLiceneNo();
+    if (regDrivingLicenceNo.test($('#txtLicenceNo').val())) {
+        if (event.key === "Enter") {
+            $("#txtDriverName").focus();
+        }
+    }
+});
+
+function checkDriverLiceneNo() {
+    var name = $('#txtLicenceNo').val();
+    if (regDrivingLicenceNo.test(name)) {
+        $("#txtLicenceNo").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#txtLicenceNo").css('border', '2px solid red');
+        return false;
+    }
+}
 
 $('#txtDriverName').on('keyup', function (event) {
     checkDriverName();
@@ -104,6 +132,17 @@ $('#txtDriverPassword').on('keyup', function (event) {
     checkDriverPassword();
 });
 
+function checkDriverPassword() {
+    var password = $('#txtDriverPassword').val();
+    if (regLoginPassword.test(password)) {
+        $("#txtDriverPassword").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#txtDriverPassword").css('border', '2px solid red');
+        return false;
+    }
+}
+
 function clearDriverFields() {
     $('#txtLicenceNo').val("");
     $('#txtDriverName').val("");
@@ -130,17 +169,6 @@ function clearDriverFields() {
     loadAvailableDrivers();
     loadNonAvailableDrivers();
     loadAllDrivers();
-}
-
-function checkDriverPassword() {
-    var password = $('#txtDriverPassword').val();
-    if (regLoginPassword.test(password)) {
-        $("#txtDriverPassword").css('border', '2px solid green');
-        return true;
-    } else {
-        $("#txtDriverPassword").css('border', '2px solid red');
-        return false;
-    }
 }
 
 $('#btnSaveDriver').click(function () {
@@ -172,13 +200,13 @@ function saveDriver() {
     console.log(driver);
 
     $.ajax({
-        url: baseUrl + "api/v1/driver",
+        url: baseUrl2 + "api/v1/driver",
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify(driver),
         success: function (resp) {
             if (resp.data === true) {
-                registeredDriverLoadTable();
+                loadAllDrivers();
                 alert(resp.massage);
                 console.log("Success");
             }
@@ -193,7 +221,7 @@ function saveDriver() {
 function loadAvailableDrivers() {
     $('#tblAvailableDrivers').empty();
     $.ajax({
-        url: baseUrl + "api/v1/driver/getAllAvailableDrivers",
+        url: baseUrl2 + "api/v1/driver/getAllAvailableDrivers",
         method: "GET",
         success: function (res) {
             for (const driver of res.data) {
@@ -207,7 +235,7 @@ function loadAvailableDrivers() {
 function loadNonAvailableDrivers() {
     $('#tblNonAvailableDrivers').empty();
     $.ajax({
-        url: baseUrl + "api/v1/driver/getAllNonAvailableDrivers",
+        url: baseUrl2 + "api/v1/driver/getAllNonAvailableDrivers",
         method: "GET",
         success: function (res) {
             for (const driver of res.data) {
@@ -221,7 +249,7 @@ function loadNonAvailableDrivers() {
 function loadAllDrivers() {
     $('#tblRegisteredDrivers').empty();
     $.ajax({
-        url: baseUrl + "api/v1/driver",
+        url: baseUrl2 + "api/v1/driver",
         method: "GET",
         success: function (res) {
             for (const driver of res.data) {
@@ -245,7 +273,7 @@ function bindRegisterDriversClickEvents() {
 
 function findDriver(licenceNo) {
     $.ajax({
-        url: baseUrl + "api/v1/driver/" + licenceNo,
+        url: baseUrl2 + "api/v1/driver/" + licenceNo,
         method: "GET",
         success: function (res) {
             let driver = res.data;
@@ -277,7 +305,7 @@ $('#btnDeleteDriver').click(function () {
 function deleteDriver() {
     let licenceNo = $('#txtLicenceNo').val();
     $.ajax({
-        url: baseUrl + "api/v1/driver?licenceNo=" + licenceNo,
+        url: baseUrl2 + "api/v1/driver?licenceNo=" + licenceNo,
         method: "DELETE",
         success: function (res) {
             loadAvailableDrivers();
@@ -348,7 +376,7 @@ function updateDriver() {
     }
 
     $.ajax({
-        url: baseUrl + "api/v1/driver",
+        url: baseUrl2 + "api/v1/driver",
         method: "PUT",
         contentType: "application/json",
         data: JSON.stringify(driver),
@@ -374,7 +402,7 @@ $('#searchDriver').on('keyup', function (event) {
 
 function checkSearchDriver() {
     var search = $('#searchDriver').val();
-    if (regLicenceNo.test(search)) {
+    if (regDrivingLicenceNo.test(search)) {
         $("#searchDriver").css('border', '2px solid green');
         return true;
     } else {
@@ -386,7 +414,7 @@ function checkSearchDriver() {
 function searchDriverDetails() {
     let licenceNo = $('#searchDriver').val();
     $.ajax({
-        url: baseUrl + "api/v1/driver/" + licenceNo,
+        url: baseUrl2 + "api/v1/driver/" + licenceNo,
         method: "GET",
         success: function (res) {
             let driver = res.data;

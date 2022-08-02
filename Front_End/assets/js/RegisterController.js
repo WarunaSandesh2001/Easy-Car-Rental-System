@@ -10,7 +10,7 @@ let regLoginPassword = /^[A-z0-9@#$%&!*]{8,}$/;
 var baseUrl1 = "http://localhost:8080/Back_End_war/api/v1/admin";
 var baseUrl3 = "http://localhost:8080/Back_End_war/api/v1/customer";
 
-$('#txtUserName,#txtPassword,#txtName,#txtContact,#txtAddress,#txtEmail,#txtLicene,#txtNIC,#txtUserName,#txtPassword,#imgNiCFront,#imgNiCBack,#imgLicence').on('keydown', function (event) {
+$('#txtUserName,#txtPassword,#txtName,#txtContact,#txtAddress,#txtEmail,#txtLicene,#txtNIC,#imgNiCFront,#imgNiCBack,#imgLicence').on('keydown', function (event) {
     if (event.key == "Tab") {
         event.preventDefault();
     }

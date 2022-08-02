@@ -1,3 +1,5 @@
+//=========================================Regex=============================================================
+
 function loadPendingCustomers() {
     $('#tblPendingCustomers').empty();
     $.ajax({
