@@ -1,4 +1,4 @@
-let baseUrl = "http://localhost:8080/Car_Rental_BackEnd_war/";
+let baseUrl = "http://localhost:8080/Back_End_war/";
 
 let regRegNo = /^[A-z ]{1,3}(-)[0-9]{4}$/;
 let regBrand = /^[A-z, |0-9:./]*\b$/;
@@ -420,27 +420,13 @@ function addCar() {
         contentType: "application/json",
         data: JSON.stringify(car),
         success: function (res) {
-            /*loadAllCars();*/
-            /*uploadCarImages(regNo);*/
-           /* getAvailableCarCount();*/
-            /*swal({
-                title: "Confirmation",
-                text: "Car Added Successfully",
-                icon: "success",
-                button: "Close",
-                timer: 2000
-            });*/
-            /*alert(res.massage);*/
+            loadAllCars();
+            uploadCarImages(regNo);
+            getAvailableCarCount();
+            alert(res.massage);
         },
         error: function (ob) {
-            /*swal({
-                title: "Error!",
-                text: "Car Not Added Successfully",
-                icon: "error",
-                button: "Close",
-                timer: 2000
-            });*/
-            /*alert(ob.massage);*/
+            alert(ob.message("Already Exists.."));
         }
     })
 }
@@ -460,7 +446,7 @@ function loadAllCars() {
     });
 }
 
-/*function getAvailableCarCount() {
+function getAvailableCarCount() {
     let status = "Available";
     $.ajax({
         url: baseUrl + "api/v1/car/count/" + status,
@@ -477,9 +463,10 @@ function loadAllCars() {
             }
         }
     })
-}*/
+}
 
 function uploadCarImages(registrationID) {
+
     var fileObjectFront = $('#imgFrontView')[0].files[0];
     var fileNameFront = registrationID + "-front-" + $('#imgFrontView')[0].files[0].name;
 
@@ -498,6 +485,11 @@ function uploadCarImages(registrationID) {
     data.append("interImg", fileObjectInterior, fileNameInterior);
     data.append("sideImg", fileObjectSide, fileNameSide);
 
+    /*console.log(fileNameFront);
+    console.log(fileNameBack);
+    console.log(fileNameInterior);
+    console.log(fileNameSide);*/
+
     $.ajax({
         url: baseUrl + "api/v1/car/up/" + registrationID,
         method: "PUT",
@@ -512,7 +504,7 @@ function uploadCarImages(registrationID) {
     })
 }
 
-/*function clearAddCarFields() {
+function clearAddCarFields() {
     $('#txtRegNo').val("");
     $('#txtBrand').val("");
     $('#cmbtype').find('option:selected').text("- Select Car Type -");
@@ -555,13 +547,13 @@ function uploadCarImages(registrationID) {
     $("#updateCar").prop('disabled', true);
     $("#delCar").prop('disabled', true);
     $("#saveCar").prop('disabled', false);
-}*/
+}
 
 
-/*$('#clearCar').click(function () {
+$('#clearCar').click(function () {
     clearAddCarFields();
     loadAllCars();
-});*/
+});
 
 function bindCarTableClickEvents() {
     $('#carTable>tr').click(function () {
@@ -605,14 +597,11 @@ function bindCarTableClickEvents() {
     });
 }
 
-/*
 $('#updateCar').click(function () {
     updateCar();
     clearAddCarFields();
 });
-*/
 
-/*
 function updateCar() {
     let regNo = $('#txtRegNo').val();
     let brand = $('#txtBrand').val();
@@ -653,36 +642,33 @@ function updateCar() {
         data: JSON.stringify(car),
         success: function (res) {
             loadAllCars();
-            /!*swal({
+            /*swal({
                 title: "Confirmation",
                 text: "Car Updated Successfully",
                 icon: "success",
                 button: "Close",
                 timer: 2000
-            });*!/
+            });*/
             alert(res.massage);
         },
         error: function (ob) {
-            /!*swal({
+            /*swal({
                 title: "Error",
                 text: "Car Not Updated Successfully",
                 icon: "error",
                 button: "Close",
                 timer: 2000
-            });*!/
+            });*/
             alert(ob.massage);
         }
     })
 }
-*/
 
-/*
 $('#delCar').click(function () {
     deleteCar();
     clearAddCarFields();
-})*/
+})
 
-/*
 function deleteCar() {
     let registrationNo = $('#txtRegNo').val();
     $.ajax({
@@ -690,37 +676,35 @@ function deleteCar() {
         method: "DELETE",
         success: function (res) {
             loadAllCars();
-            /!*swal({
+            /*swal({
                 title: "Confirmation!",
                 text: "Car Deleted Successfully",
                 icon: "success",
                 button: "Close",
                 timer: 2000
-            });*!/
+            });*/
             alert(res.massage);
         },
         error: function (ob) {
-            /!*swal({
+            /*swal({
                 title: "Error",
                 text: "Car Not Deleted Successfully",
                 icon: "error",
                 button: "Close",
                 timer: 2000
-            });*!/
+            });*/
             alert(ob.massage);
         }
     })
-}*/
+}
 
-/*
 $('#searchCar').on('keyup', function (event) {
     checkSearchCar();
     if (event.key === "Enter") {
         searchCar();
     }
-});*/
+});
 
-/*
 function checkSearchCar() {
     var regNo = $('#searchCar').val();
     if (regRegNo.test(regNo)) {
@@ -730,9 +714,8 @@ function checkSearchCar() {
         $("#searchCar").css('border', '3px solid red');
         return false;
     }
-}*/
+}
 
-/*
 function searchCar() {
     let registrationNo = $('#searchCar').val();
     $.ajax({
@@ -749,4 +732,4 @@ function searchCar() {
             alert(ob.massage);
         }
     })
-}*/
+}

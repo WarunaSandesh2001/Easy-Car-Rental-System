@@ -1,80 +1,153 @@
-var baseUrl1 = "http://localhost:8080/Back_End_war/api/v1/driver";
+var baseUrl = "http://localhost:8080/Back_End_war/";
+
+$('#txtDriverName').on('keyup', function (event) {
+    checkDriverName();
+    if (regName.test($('#txtDriverName').val())) {
+        if (event.key === "Enter") {
+            $("#txtDriverAddress").focus();
+        }
+    }
+});
+
+function checkDriverName() {
+    var name = $('#txtDriverName').val();
+    if (regName.test(name)) {
+        $("#txtDriverName").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#txtDriverName").css('border', '2px solid red');
+        return false;
+    }
+}
+
+$('#txtDriverAddress').on('keyup', function (event) {
+    checkDriverAddress();
+    if (regAddress.test($('#txtDriverAddress').val())) {
+        if (event.key === "Enter") {
+            $("#txtDriverContactNo").focus();
+        }
+    }
+});
+
+function checkDriverAddress() {
+    var address = $('#txtDriverAddress').val();
+    if (regAddress.test(address)) {
+        $("#txtDriverAddress").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#txtDriverAddress").css('border', '2px solid red');
+        return false;
+    }
+}
+
+$('#txtDriverContactNo').on('keyup', function (event) {
+    checkDriverContact();
+    if (regAddress.test($('#txtDriverContactNo').val())) {
+        if (event.key === "Enter") {
+            $("#txtDriverNICNo").focus();
+        }
+    }
+});
+
+function checkDriverContact() {
+    var contact = $('#txtDriverContactNo').val();
+    if (regContactNo.test(contact)) {
+        $("#txtDriverContactNo").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#txtDriverContactNo").css('border', '2px solid red');
+        return false;
+    }
+}
+
+$('#txtDriverNICNo').on('keyup', function (event) {
+    checkDriverNIC();
+    if (regNicNo.test($('#txtDriverNICNo').val())) {
+        if (event.key === "Enter") {
+            $("#txtDriverUserName").focus();
+        }
+    }
+});
+
+function checkDriverNIC() {
+    var nic = $('#txtDriverNICNo').val();
+    if (regNicNo.test(nic)) {
+        $("#txtDriverNICNo").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#txtDriverNICNo").css('border', '2px solid red');
+        return false;
+    }
+}
+
+$('#txtDriverUserName').on('keyup', function (event) {
+    checkDriverUsername();
+    if (regLoginUsername.test($('#txtDriverUserName').val())) {
+        if (event.key === "Enter") {
+            $("#txtDriverPassword").focus();
+        }
+    }
+});
+
+function checkDriverUsername() {
+    var username = $('#txtDriverUserName').val();
+    if (regLoginUsername.test(username)) {
+        $("#txtDriverUserName").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#txtDriverUserName").css('border', '2px solid red');
+        return false;
+    }
+}
+
+$('#txtDriverPassword').on('keyup', function (event) {
+    checkDriverPassword();
+});
+
+function clearDriverFields() {
+    $('#txtLicenceNo').val("");
+    $('#txtDriverName').val("");
+    $('#txtDriverAddress').val("");
+    $('#txtDriverContactNo').val("");
+    $('#txtDriverNICNo').val("");
+    $('#txtDriverUserName').val("");
+    $('#txtDriverPassword').val("");
+    $('#searchDriver').val("");
+
+    $('#txtLicenceNo').css('border', '1px solid #ced4da');
+    $('#txtDriverName').css('border', '1px solid #ced4da');
+    $('#txtDriverAddress').css('border', '1px solid #ced4da');
+    $('#txtDriverContactNo').css('border', '1px solid #ced4da');
+    $('#txtDriverNICNo').css('border', '1px solid #ced4da');
+    $('#txtDriverUserName').css('border', '1px solid #ced4da');
+    $('#txtDriverPassword').css('border', '1px solid #ced4da');
+    $('#searchDriver').css('border', '1px solid #ced4da');
+
+    $('#btnUpdateDriver').prop('disabled', true);
+    $('#btnDeleteDriver').prop('disabled', true);
+    $('#btnSaveDriver').prop('disabled', false);
+
+    loadAvailableDrivers();
+    loadNonAvailableDrivers();
+    loadAllDrivers();
+}
+
+function checkDriverPassword() {
+    var password = $('#txtDriverPassword').val();
+    if (regLoginPassword.test(password)) {
+        $("#txtDriverPassword").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#txtDriverPassword").css('border', '2px solid red');
+        return false;
+    }
+}
 
 $('#btnSaveDriver').click(function () {
    saveDriver();
 });
-registeredDriverLoadTable();
-/*function saveDriver() {
-    let id = $('#txtLicenceNo').val();
-    let name = $('#txtDriverName').val();
-    let address = $('#txtDriverAddress').val();
-    let contactNo = $('#txtDriverContactNo').val();
 
-    let nicNo = $('#txtDriverNICNo').val();
-    let username = $('#txtDriverUserName').val();
-    let password = $('#txtDriverPassword').val();
-   /!* let availability = $('#availability').val();*!/
-
-    var driver = {
-        licenceNo: id,
-        name: name,
-        address: address,
-        contactNo: contactNo,
-        nicNo: nicNo,
-        username: username,
-        password: password
-    }
-    console.log(driver);
-
-    $.ajax({
-
-        url: baseUrl2,
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(driver),
-        success: function (resp) {
-            if (resp.data === true) {
-
-                alert(resp.massage);
-                console.log(resp);
-
-
-                driverLoadTable();
-                // clearSignupTextFields();
-            }
-        },
-        error: function (ob) {
-
-            alert(ob.massage);
-        }
-    });
-
-}
-
-function driverLoadTable() {
-    $("#registeredDriversTbl").empty();
-    $.ajax({
-
-        url: baseUrl2,
-        method: "GET",
-        //contentType: "application/json",
-        //data: JSON.stringify(driver),
-        success: function (resp) {
-
-            console.log(resp.data);
-            for (let driver of resp.data) {
-                let row = `<tr><td>${driver.licenceNo}</td><td>${driver.name}</td><td>${driver.address}</td><td>${driver.contactNo}</td><td>${driver.nicNo}</td><td>${driver.availability}</td></tr>`;
-                $("#registeredDriversTbl").append(row);
-            }
-            //alert(resp.massage);
-            // clearSignupTextFields();
-        },
-        error: function (ob) {
-            /!*alert(ob.massage);*!/
-        }
-    });
-
-}*/
+loadAllDrivers();
 
 function saveDriver() {
     let id = $('#txtLicenceNo').val();
@@ -99,7 +172,7 @@ function saveDriver() {
     console.log(driver);
 
     $.ajax({
-        url: baseUrl1,
+        url: baseUrl + "api/v1/driver",
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify(driver),
@@ -117,25 +190,220 @@ function saveDriver() {
     })
 }
 
-function registeredDriverLoadTable() {
-    $("#tblRegisteredDrivers").empty();
+function loadAvailableDrivers() {
+    $('#tblAvailableDrivers').empty();
     $.ajax({
-
-        url: baseUrl1,
+        url: baseUrl + "api/v1/driver/getAllAvailableDrivers",
         method: "GET",
-        //contentType: "application/json",
-        //data: JSON.stringify(driver),
-        success: function (resp) {
-
-            console.log(resp.data);
-            for (let driver of resp.data) {
+        success: function (res) {
+            for (const driver of res.data) {
                 let row = `<tr><td>${driver.licenceNo}</td><td>${driver.name}</td><td>${driver.address}</td><td>${driver.contactNo}</td><td>${driver.nicNo}</td><td>${driver.availability}</td></tr>`;
-                $("#tblRegisteredDrivers").append(row);
+                $('#tblAvailableDrivers').append(row);
             }
-            // clearSignupTextFields();
+        }
+    })
+}
+
+function loadNonAvailableDrivers() {
+    $('#tblNonAvailableDrivers').empty();
+    $.ajax({
+        url: baseUrl + "api/v1/driver/getAllNonAvailableDrivers",
+        method: "GET",
+        success: function (res) {
+            for (const driver of res.data) {
+                let row = `<tr><td>${driver.licenceNo}</td><td>${driver.name}</td><td>${driver.address}</td><td>${driver.contactNo}</td><td>${driver.nicNo}</td><td>${driver.availability}</td></tr>`;
+                $('#tblNonAvailableDrivers').append(row);
+            }
+        }
+    })
+}
+
+function loadAllDrivers() {
+    $('#tblRegisteredDrivers').empty();
+    $.ajax({
+        url: baseUrl + "api/v1/driver",
+        method: "GET",
+        success: function (res) {
+            for (const driver of res.data) {
+                let row = `<tr><td>${driver.licenceNo}</td><td>${driver.name}</td><td>${driver.address}</td><td>${driver.contactNo}</td><td>${driver.nicNo}</td><td>${driver.availability}</td></tr>`;
+                $('#tblRegisteredDrivers').append(row);
+            }
+            bindRegisterDriversClickEvents();
+        }
+    })
+}
+
+function bindRegisterDriversClickEvents() {
+    $('#tblRegisteredDrivers>tr').click(function () {
+        let licenceNo = $(this).children().eq(0).text();
+        findDriver(licenceNo);
+        $('#btnUpdateDriver').prop('disabled', false);
+        $('#btnDeleteDriver').prop('disabled', false);
+        $('#btnSaveDriver').prop('disabled', true);
+    })
+}
+
+function findDriver(licenceNo) {
+    $.ajax({
+        url: baseUrl + "api/v1/driver/" + licenceNo,
+        method: "GET",
+        success: function (res) {
+            let driver = res.data;
+            $('#txtLicenceNo').val(driver.licenceNo);
+            $('#txtDriverName').val(driver.name);
+            $('#txtDriverAddress').val(driver.address);
+            $('#txtDriverContactNo').val(driver.contactNo);
+            $('#txtDriverNICNo').val(driver.nicNo);
+            $('#txtDriverUserName').val(driver.username);
+            $('#txtDriverPassword').val(driver.password);
+        }
+    })
+}
+
+$('#btnClearDriver').click(function () {
+    clearDriverFields();
+})
+
+$('#btnDeleteDriver').click(function () {
+    if ($('#txtLicenceNo').val() != "") {
+        let res = "Do you want to delete this driver?";
+        if (res) {
+            deleteDriver();
+            clearDriverFields();
+        }
+    }
+})
+
+function deleteDriver() {
+    let licenceNo = $('#txtLicenceNo').val();
+    $.ajax({
+        url: baseUrl + "api/v1/driver?licenceNo=" + licenceNo,
+        method: "DELETE",
+        success: function (res) {
+            loadAvailableDrivers();
+            loadNonAvailableDrivers();
+            loadAllDrivers();
+
+            alert(res.message());
         },
         error: function (ob) {
-            alert(ob.massage);
+            alert(ob.message());
         }
-    });
+    })
 }
+
+$('#btnUpdateDriver').click(function () {
+    if ($('#txtLicenceNo').val() != "") {
+        if ($('#txtDriverName').val() != "") {
+            if ($('#txtDriverAddress').val() != "") {
+                if ($('#txtDriverContactNo').val() != "") {
+                    if ($('#txtDriverNICNo').val() != "") {
+                        if ($('#txtDriverUserName').val() != "") {
+                            if ($('#txtDriverPassword').val() != "") {
+                                let res = confirm("Do you want to update this driver?");
+                                if (res) {
+                                    updateDriver();
+                                    clearDriverFields();
+                                }
+                            } else {
+                                alert("Please enter password");
+                            }
+                        } else {
+                            alert("Please enter username");
+                        }
+                    } else {
+                        alert("Please enter your NIC No");
+                    }
+                } else {
+                    alert("Please enter your contact no");
+                }
+            } else {
+                alert("Please enter your address");
+            }
+        } else {
+            alert("Please enter your name");
+        }
+    } else {
+        alert("Please enter licence No");
+    }
+})
+
+function updateDriver() {
+    var licenceNo = $('#txtLicenceNo').val();
+    var name = $('#txtDriverName').val();
+    var address = $('#txtDriverAddress').val();
+    var contact = $('#txtDriverContactNo').val();
+    var nic = $('#txtDriverNICNo').val();
+    var username = $('#txtDriverUserName').val();
+    var password = $('#txtDriverPassword').val();
+
+    var driver = {
+        licenceNo: licenceNo,
+        name: name,
+        address: address,
+        contactNo: contact,
+        nicNo: nic,
+        username: username,
+        password: password
+    }
+
+    $.ajax({
+        url: baseUrl + "api/v1/driver",
+        method: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(driver),
+        success: function (res) {
+            loadAllDrivers();
+            loadAvailableDrivers();
+            loadNonAvailableDrivers();
+
+            alert(res.message());
+        },
+        error: function (ob) {
+            alert(ob.message());
+        }
+    })
+}
+
+$('#searchDriver').on('keyup', function (event) {
+    checkSearchDriver();
+    if (event.key === "Enter") {
+        searchDriverDetails();
+    }
+})
+
+function checkSearchDriver() {
+    var search = $('#searchDriver').val();
+    if (regLicenceNo.test(search)) {
+        $("#searchDriver").css('border', '2px solid green');
+        return true;
+    } else {
+        $("#searchDriver").css('border', '2px solid red');
+        return false;
+    }
+}
+
+function searchDriverDetails() {
+    let licenceNo = $('#searchDriver').val();
+    $.ajax({
+        url: baseUrl + "api/v1/driver/" + licenceNo,
+        method: "GET",
+        success: function (res) {
+            let driver = res.data;
+            $('#tblRegisteredDrivers').empty();
+            let row = `<tr><td>${driver.licenceNo}</td><td>${driver.name}</td><td>${driver.address}</td><td>${driver.contactNo}</td><td>${driver.nicNo}</td><td>${driver.availability}</td></tr>`;
+            $('#tblRegisteredDrivers').append(row);
+        },
+        error: function (ob) {
+            loadAllDrivers();
+
+            alert(ob.message())
+        }
+    })
+}
+
+$('#btnSearchDriver').click(function () {
+    if ($('#searchDriver').val() != "") {
+        searchDriverDetails();
+    }
+});

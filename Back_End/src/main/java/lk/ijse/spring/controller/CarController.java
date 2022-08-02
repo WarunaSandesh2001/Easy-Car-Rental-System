@@ -29,7 +29,7 @@ public class CarController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveCar(@RequestBody CarDTO dto) {
         System.out.println(dto.toString());
-       /* service.saveCar(dto);*/
+        service.saveCar(dto);
         return new ResponseUtil(200, "Saved", true);
     }
 
@@ -69,7 +69,7 @@ public class CarController {
     @PutMapping(path = "/up/{registrationID}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil uploadImagesAndPath(@RequestPart("frontImg") MultipartFile frontImg, @RequestPart("backImg") MultipartFile backImg, @RequestPart("interImg") MultipartFile interImg, @RequestPart("sideImg") MultipartFile sideImg, @PathVariable String registrationID) {
         try {
-            String projectPath = String.valueOf(new File("/D:/GDSE/2nd sem Final/Easy-Car-Rent-System/assets/savedImages/"));
+            String projectPath = String.valueOf(new File("/D:/GDSE/2nd sem Final/Easy-Car-Rent-System/Front_End/savedImages"));
             File uploadsDir = new File(projectPath + "/Cars");
             uploadsDir.mkdir();
             frontImg.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + frontImg.getOriginalFilename()));
@@ -82,6 +82,10 @@ public class CarController {
             String interImgPath = projectPath + "/Cars/" + interImg.getOriginalFilename();
             String sideImgPath = projectPath + "/Cars/" + sideImg.getOriginalFilename();
 
+            System.out.println(frontImgPath);
+            System.out.println(backImgPath);
+            System.out.println(interImgPath);
+            System.out.println(sideImgPath);
             service.updateCarFilePaths(frontImgPath, backImgPath, interImgPath, sideImgPath, registrationID);
 
             return new ResponseUtil(200, "Uploaded", true);
