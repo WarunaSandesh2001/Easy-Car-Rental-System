@@ -50,17 +50,17 @@ function searchAndLoadCustomerImgs(id) {
             let customer = res.data;
 
             let nicFrontPath = customer.nicFrontImg;
-            let nicFrontImg = nicFrontPath.split("/media/prageeth/Disk D/GitHub Projects/Easy-Car-Rental/Car-Rental-FontEnd/assets/savedImages/Customers/")[1];
-            let nicFrontImgSrc = "assets/savedImages/Customers/" + nicFrontImg;
+            let nicFrontImg = nicFrontPath.split("D:\\GDSE\\2nd sem Final\\Easy-Car-Rent-System\\Front_End\\savedImages\\Customers\\")[1];
+            let nicFrontImgSrc = "savedImages/Customers/" + nicFrontImg;
             console.log(nicFrontImgSrc);
 
             let nicBackPath = customer.nicBackImg;
-            let nicBackImg = nicBackPath.split("/media/prageeth/Disk D/GitHub Projects/Easy-Car-Rental/Car-Rental-FontEnd/assets/savedImages/Customers/")[1];
-            let nicBackImgSrc = "assets/savedImages/Customers/" + nicBackImg;
+            let nicBackImg = nicBackPath.split("D:\\GDSE\\2nd sem Final\\Easy-Car-Rent-System\\Front_End\\savedImages\\Customers\\")[1];
+            let nicBackImgSrc = "savedImages/Customers/" + nicBackImg;
 
             let licencePath = customer.licenceImg;
-            let licenceImg = licencePath.split("/media/prageeth/Disk D/GitHub Projects/Easy-Car-Rental/Car-Rental-FontEnd/assets/savedImages/Customers/")[1];
-            let licenceImgSrc = "assets/savedImages/Customers/" + licenceImg;
+            let licenceImg = licencePath.split("D:\\GDSE\\2nd sem Final\\Easy-Car-Rent-System\\Front_End\\savedImages\\Customers\\")[1];
+            let licenceImgSrc = "savedImages/Customers/" + licenceImg;
 
             let nicfImg = `<img src=${nicFrontImgSrc} alt="NIC Front" style="background-size: cover;width: 100%;height: 100%">`;
             $('#divNICFrontView').append(nicfImg);

@@ -4,6 +4,7 @@ let regLoginPassword = /^[A-z0-9@#$%&!*]{8,}$/;
 var baseUrl1 = "http://localhost:8080/Back_End_war/api/v1/admin";
 var baseUrl2 = "http://localhost:8080/Back_End_war/api/v1/driver";
 var baseUrl3 = "http://localhost:8080/Back_End_war/api/v1/customer";
+var baseUrl = "http://localhost:8080/Back_End_war/";
 
 function loginUser() {
     var username = $('#userName').val();
@@ -11,7 +12,6 @@ function loginUser() {
     var userType = $('#cmbType').find('option:selected').text();
 
     console.log(userType);
-
     if (userType === "Admin") {
         searchAdmin(userType, username, password);
     } else if (userType === "Customer"){
@@ -20,7 +20,42 @@ function loginUser() {
         searchDriver(userType,username,password);
     }
 }
+//===========================================================================
+function loginSave(userType, username, password) {
+    let logId = $('#txtLogId').val();
+    console.log(logId);
+    $.ajax({
+        url: baseUrl + "api/v1/login",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(
+            {
+                loginId: logId,
+                username: username,
+                password: password,
+                role: userType
+            }
+        ),
+        success: function (res) {
+            console.log("Login data saved");
+        }
+    })
+}
 
+$(function () {
+    getNewLoginId();
+});
+
+function getNewLoginId() {
+    $.ajax({
+        url: baseUrl + "api/v1/login/generateLogId",
+        method: "GET",
+        success: function (res) {
+            $('#txtLogId').val(res.data);
+        }
+    });
+}
+//===========================================================================
 function searchAdmin(userType, username, password) {
     if (userType === "Admin") {
         $.ajax({
@@ -28,6 +63,7 @@ function searchAdmin(userType, username, password) {
             method: "GET",
             success: function (res) {
                 if (res.data === true) {
+                    loginSave(userType,username,password);
                     location.replace("AdminDashBoard.html");
                 } else {
                     /*swal.fire({
@@ -50,6 +86,7 @@ function searchDriver(userType, username, password) {
             method: "GET",
             success: function (res) {
                 if (res.data === true) {
+                    loginSave(userType,username,password);
                     location.replace("DriverPage.html");
                 } else {
                     /*swal.fire({
@@ -72,6 +109,7 @@ function searchCustomer(userType, username, password) {
             method: "GET",
             success: function (res) {
                 if (res.data === true) {
+                    loginSave(userType,username,password);
                     location.replace("CustomerDashBoard.html");
                 } else {
                     /*swal.fire({

@@ -6,6 +6,33 @@ $('#txtCarTodayDate').val(today);
 
 generateRentId();
 generatePaymentId();
+getLastLoginUser();
+
+function getLastLoginUser() {
+    $.ajax({
+        url: "http://localhost:8080/Back_End_war/api/v1/login/getLastLogin",
+        method: "GET",
+        success: function (res) {
+            let login = res.data;
+            console.log(login.loginId);
+            getAllUserData(login.username, login.password);
+        }
+    })
+}
+
+function getAllUserData(username, password) {
+    $.ajax({
+        url: "http://localhost:8080/Back_End_war/api/v1/customer/set/" + username + "/" + password,
+        method: "GET",
+        success: function (res) {
+            let customer = res.data;
+            $('#txtCustId').val(customer.customerId);
+            /*setCustomerDetails(customer);
+            loadMyCarRentsToTable(customer.customerId);*/
+        }
+    })
+}
+//==================================================================================================================
 
 $('#cmbType').change(function () {
     let type = $('#cmbType').find('option:selected').text();
@@ -204,6 +231,7 @@ function searchCustomerById(customerId) {
         method: "GET",
         success: function (res) {
             let customer = res.data;
+            console.log("Success"+customer.toString());
             searchCarByRegNo(customer);
         }
     });
@@ -216,6 +244,7 @@ function searchCarByRegNo(customer) {
         method: "GET",
         success: function (res) {
             let car = res.data;
+            console.log("Success"+car.toString());
             searchDriverByLicenceNo(customer, car);
         }
     })
@@ -232,7 +261,7 @@ function searchDriverByLicenceNo(customer, car) {
             method: "GET",
             success: function (res) {
                 let driver = res.data;
-                console.log(res.data);
+                console.log("Success"+driver.toString());
                 addCarRent(customer, car, driver);
             }
         })
@@ -301,3 +330,69 @@ function getLastRent(rentId, customer) {
         }
     })
 }
+
+function addAdvancedPayment(carRent, customer) {
+    let paymentId = $('#txtPaymentId').val();
+    let today = $('#txtCarTodayDate').val();
+    let amount = $('#txtPaymentAmount').val();
+    if ($('#txtPaymentAmount').val() === "") {
+        amount = 0.0;
+    }
+    var payment = {
+        paymentId: paymentId,
+        date: today,
+        amount: amount,
+        rental: carRent,
+        customer: customer
+    }
+
+    $.ajax({
+        url: baseUrl + "api/v1/payment",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(payment),
+        success: function (res) {
+            console.log("Payment Success");
+            clearCarRentFields();
+            generateRentId();
+            generatePaymentId();
+        }
+    })
+}
+
+function clearCarRentFields() {
+    // $('#cmbType').find('option:selected').text("- Select Car Type -");
+    $('#cmbRegistrationNo').find('option:selected').text("");
+    $('#txtCarBrand').val("");
+    $('#txtCarColor').val("");
+    $('#txtCarFuel').val("");
+    $('#txtCarTransmission').val("");
+    $('#txtCarNoOfPassengers').val("");
+    $('#txtCarDailyRate').val("");
+    $('#txtCarMonthlyRate').val("");
+    $('#txtCarFreeKmForPrice').val("");
+    $('#txtCarFreeKmForDuration').val("");
+    $('#txtCarLossDamageWavier').val("");
+    $('#txtCarPriceForExtraKm').val("");
+    $('#txtCarCompleteKm').val("");
+    $('#divCarFrontView').empty();
+    $('#divCarBackView').empty();
+    $('#divCarSideView').empty();
+    $('#divCarInteriorView').empty();
+    $('#txtCarPickupDate').val("");
+    $('#txtCarReturnDate').val("");
+    $('#needDriver').prop('checked', false);
+    $('#txtDriverLicenceNo').val("");
+    $('#txtDriverName').val("");
+    $('#txtDriverAddress').val("");
+    $('#txtDriverContactNo').val("");
+    $('#txtDriverNIC').val("");
+    $('#txtPaymentAmount').val("");
+    $('#txtPaymentAmount').css('border', '1px solid #ced4da');
+}
+
+$('#btnCancleRental').click(function () {
+    clearCarRentFields();
+    generateRentId();
+    generatePaymentId();
+})
