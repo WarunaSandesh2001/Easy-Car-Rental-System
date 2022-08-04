@@ -132,7 +132,7 @@ function checkFuel() {
 
 $('#cmbColor').click(function () {
     checkColor();
-})
+});
 
 function checkColor() {
     var color = $('#cmbColor').find('option:selected').text();

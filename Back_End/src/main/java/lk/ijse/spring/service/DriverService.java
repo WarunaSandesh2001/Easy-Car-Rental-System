@@ -27,6 +27,8 @@ public interface DriverService {
 
     List<DriverDTO> getAllAvailableDrivers();
 
+    List<DriverDTO> getRandomDriver();
+
     List<DriverDTO> getAllNonAvailableDrivers();
 
     int getCountOfDriversByStatus(boolean availability);

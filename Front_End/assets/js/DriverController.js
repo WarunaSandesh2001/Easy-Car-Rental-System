@@ -176,6 +176,8 @@ $('#btnSaveDriver').click(function () {
 });
 
 loadAllDrivers();
+loadAvailableDrivers();
+loadNonAvailableDrivers();
 
 function saveDriver() {
     let id = $('#txtLicenceNo').val();

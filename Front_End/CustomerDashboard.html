@@ -86,7 +86,7 @@
                         <div class="row ml-0 mr-0 mt-2 mb-2 align-content-end ">
                             <div class="input-group d-flex align-items-lg-end justify-content-end">
                                 <div class="col-2">
-                                    <input disabled type="text" class="form-control" id="txtCustId" name="customerId"" >
+                                    <input disabled type="text" class="form-control" id="txtCustId" name="customerId" >
                                 </div>
                             </div>
                         </div>
@@ -395,8 +395,9 @@
 
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/jQuery/jquery-3.6.0.min.js"></script>
-<script src="assets/sweetalert/sweetalert2.min.css"></script>
+<!--<script src="assets/sweetalert/sweetalert2.min.css"></script>-->
 <!--<script src="assets/bs-init.js"></script>-->
+<script src="assets/js/CustomerDashBoardController.js"></script>
 <script>
 
     var navbar = document.getElementById("navSection");
@@ -405,7 +406,6 @@
     function scrollFunction() {
 
         if (window.pageYOffset >= sticky) {
-            console.log(sticky + 'in');
             navbar.classList.add('sticky');
         } else {
             navbar.classList.remove('sticky');
@@ -414,50 +414,6 @@
         }
 
     }
-
-
-    function Time() {
-
-        var date = new Date();
-
-        var hour = date.getHours();
-
-        var minute = date.getMinutes();
-
-        var second = date.getSeconds();
-
-        var period = "";
-
-        if (hour >= 12) {
-            period = "PM";
-        } else {
-            period = "AM";
-        }
-
-        if (hour == 0) {
-            hour = 12;
-        } else {
-            if (hour > 12) {
-                hour = hour - 12;
-            }
-        }
-
-        hour = update(hour);
-        minute = update(minute);
-        second = update(second);
-        document.getElementById("digitalClock").innerText = hour + " : " + minute + " : " + second + " " + period;
-        setTimeout(Time, 1000);
-    }
-
-    function update(t) {
-        if (t < 10) {
-            return "0" + t;
-        } else {
-            return t;
-        }
-    }
-
-    Time();
 
 
 </script>

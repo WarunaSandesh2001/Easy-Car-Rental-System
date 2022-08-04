@@ -80,13 +80,13 @@ $('#btnAcceptCustomer').click(function () {
         acceptCustomer(id);
         clearCustomerFields();
     } else {
-        swal({
+        /*swal({
             title: "Error",
             text: "Customer Not Selected",
             icon: "error",
             button: "Close",
             timer: 2000
-        });
+        });*/
     }
 });
 
@@ -134,13 +134,13 @@ $('#btnRejectCustomer').click(function () {
         let customerId = $('#txtCustomerId').val();
         rejectPendingCustomer(customerId);
     } else {
-        swal({
+        /*swal({
             title: "Error",
             text: "Customer Not Selected",
             icon: "error",
             button: "Close",
             timer: 2000
-        });
+        });*/
     }
 });
 

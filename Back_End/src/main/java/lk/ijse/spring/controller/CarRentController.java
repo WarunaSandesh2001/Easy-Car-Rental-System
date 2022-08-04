@@ -25,19 +25,19 @@ public class CarRentController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil addCarRent(CarRentDTO dto) {
         service.addCarRent(dto);
-        return new ResponseUtil(200, "Saved", null);
+        return new ResponseUtil(200, "Saved", true);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil updateCarRent(@RequestBody CarRentDTO dto) {
         service.updateCarRent(dto);
-        return new ResponseUtil(200, "Updated", null);
+        return new ResponseUtil(200, "Updated", true);
     }
 
     @DeleteMapping(params = {"rentId"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCarRent(@RequestParam String rentId) {
         service.deleteCarRent(rentId);
-        return new ResponseUtil(200, "Deleted", null);
+        return new ResponseUtil(200, "Deleted", true);
     }
 
     @GetMapping(path = "/{rentId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,7 +48,7 @@ public class CarRentController {
     @PutMapping(path = "/{rentId}/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil updateCarRentStatus(@PathVariable String rentId, @PathVariable String status) {
         service.updateCarRentStatus(rentId, status);
-        return new ResponseUtil(200, "Ok", null);
+        return new ResponseUtil(200, "Ok", true);
     }
 
     @GetMapping(path = "/get/{status}", produces = MediaType.APPLICATION_JSON_VALUE)

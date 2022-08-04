@@ -47,6 +47,7 @@ public class CarController {
 
     @GetMapping(path = "/{registrationNo}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil searchCar(@PathVariable String registrationNo) {
+        System.out.println(service.searchCar(registrationNo));
         return new ResponseUtil(200, "Ok", service.searchCar(registrationNo));
     }
 
@@ -69,18 +70,18 @@ public class CarController {
     @PutMapping(path = "/up/{registrationID}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil uploadImagesAndPath(@RequestPart("frontImg") MultipartFile frontImg, @RequestPart("backImg") MultipartFile backImg, @RequestPart("interImg") MultipartFile interImg, @RequestPart("sideImg") MultipartFile sideImg, @PathVariable String registrationID) {
         try {
-            String projectPath = String.valueOf(new File("/D:/GDSE/2nd sem Final/Easy-Car-Rent-System/Front_End/savedImages"));
-            File uploadsDir = new File(projectPath + "/Cars");
+            String projectPath = String.valueOf(new File("D:\\GDSE\\2nd sem Final\\Easy-Car-Rent-System\\Front_End\\savedImages"));
+            File uploadsDir = new File(projectPath + "\\Cars");
             uploadsDir.mkdir();
-            frontImg.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + frontImg.getOriginalFilename()));
-            backImg.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + backImg.getOriginalFilename()));
-            interImg.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + interImg.getOriginalFilename()));
-            sideImg.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + sideImg.getOriginalFilename()));
+            frontImg.transferTo(new File(uploadsDir.getAbsolutePath() + "\\" + frontImg.getOriginalFilename()));
+            backImg.transferTo(new File(uploadsDir.getAbsolutePath() + "\\" + backImg.getOriginalFilename()));
+            interImg.transferTo(new File(uploadsDir.getAbsolutePath() + "\\" + interImg.getOriginalFilename()));
+            sideImg.transferTo(new File(uploadsDir.getAbsolutePath() + "\\" + sideImg.getOriginalFilename()));
 
-            String frontImgPath = projectPath + "/Cars/" + frontImg.getOriginalFilename();
-            String backImgPath = projectPath + "/Cars/" + backImg.getOriginalFilename();
-            String interImgPath = projectPath + "/Cars/" + interImg.getOriginalFilename();
-            String sideImgPath = projectPath + "/Cars/" + sideImg.getOriginalFilename();
+            String frontImgPath = projectPath + "\\Cars\\" + frontImg.getOriginalFilename();
+            String backImgPath = projectPath + "\\Cars\\" + backImg.getOriginalFilename();
+            String interImgPath = projectPath + "\\Cars\\" + interImg.getOriginalFilename();
+            String sideImgPath = projectPath + "\\Cars\\" + sideImg.getOriginalFilename();
 
             System.out.println(frontImgPath);
             System.out.println(backImgPath);
@@ -94,5 +95,10 @@ public class CarController {
             e.printStackTrace();
             return new ResponseUtil(500, "Error", false);
         }
+    }
+
+    @GetMapping(path = "/getRegNo/{type}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCarRegistrationNoByType(@PathVariable String type){
+        return new ResponseUtil(200,"Ok",service.getCarRegistrationNumbersByType(type));
     }
 }

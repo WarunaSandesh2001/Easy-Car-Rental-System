@@ -57,7 +57,11 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDTO searchCar(String registrationNO) {
+        Car car = repo.findById(registrationNO).get();
+        System.out.println(car.toString());
+
         return mapper.map(repo.findById(registrationNO).get(), CarDTO.class);
+
     }
 
     @Override
@@ -87,5 +91,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public int getCountOfCarsByStatus(String status) {
         return repo.getCountOfCarsByStatus(status);
+    }
+
+    @Override
+    public List<String> getCarRegistrationNumbersByType(String type) {
+        return repo.getCarRegistrationNoByType(type);
     }
 }
