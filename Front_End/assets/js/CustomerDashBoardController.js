@@ -231,7 +231,7 @@ function searchCustomerById(customerId) {
         method: "GET",
         success: function (res) {
             let customer = res.data;
-            console.log("Success"+customer.toString());
+            console.log("Customer-Success"+customer);
             searchCarByRegNo(customer);
         }
     });
@@ -244,7 +244,7 @@ function searchCarByRegNo(customer) {
         method: "GET",
         success: function (res) {
             let car = res.data;
-            console.log("Success"+car.toString());
+            console.log("Car-Success"+car);
             searchDriverByLicenceNo(customer, car);
         }
     })
@@ -261,7 +261,7 @@ function searchDriverByLicenceNo(customer, car) {
             method: "GET",
             success: function (res) {
                 let driver = res.data;
-                console.log("Success"+driver.toString());
+                console.log("Driver-Success"+driver);
                 addCarRent(customer, car, driver);
             }
         })
@@ -277,6 +277,7 @@ function addCarRent(customer, car, driver) {
     let pickupDate = $('#txtCarPickupDate').val();
     let returnDate = $('#txtCarReturnDate').val();
     let status = "Pending";
+
     var carRent = {
         rentId: rentId,
         date: today,
@@ -288,6 +289,7 @@ function addCarRent(customer, car, driver) {
         driver: driver
     }
 
+    console.log("CarRent"+carRent.toString());
 
     $.ajax({
         url: baseUrl + "api/v1/CarRent",
@@ -295,26 +297,13 @@ function addCarRent(customer, car, driver) {
         contentType: "application/json",
         data: JSON.stringify(carRent),
         success: function (res) {
+            console.log("CarRent"+carRent.toString());
             getLastRent(rentId, customer);
-
-            /*swal({
-                title: "Confirmation",
-                text: "Rental Request send successfully",
-                icon: "success",
-                button: "Close",
-                timer: 2000
-            });*/
 
             alert("Success");
         },
         error: function (ob) {
-            /*swal({
-                title: "Error",
-                text: "Error Occured.Please Try Again.",
-                icon: "error",
-                button: "Close",
-                timer: 2000
-            });*/
+
             alert("Error");
         }
     })
@@ -345,6 +334,8 @@ function addAdvancedPayment(carRent, customer) {
         rental: carRent,
         customer: customer
     }
+
+    console.log(payment);
 
     $.ajax({
         url: baseUrl + "api/v1/payment",
